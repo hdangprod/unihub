@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,42 +17,18 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/prisma/*": [
-        "prisma/*"
-      ],
-      "@/public/*": [
-        "public/*"
-      ],
-      "@/env/*": [
-        "src/env/*"
-      ],
-      "@/pages/*": [
-        "src/pages/*"
-      ],
-      "@/server/*": [
-        "src/server/*"
-      ],
-      "@/styles/*": [
-        "src/styles/*"
-      ],
-      "@/utils/*": [
-        "src/utils/*"
-      ],
-      "@/components/*": [
-        "src/components/*"
-      ],
-      "@/hooks/*": [
-        "src/hooks/*"
-      ],
-      "@/interfaces/*": [
-        "src/interfaces/*"
-      ],
-      "@/store/*": [
-        "src/store/*"
-      ]
+      "@/prisma/*": ["prisma/*"],
+      "@/public/*": ["public/*"],
+      "@/env/*": ["src/env/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/server/*": ["src/server/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/interfaces/*": ["src/interfaces/*"],
+      "@/store/*": ["src/store/*"],
+      "@/app/*": ["src/app/*"]
     },
     "plugins": [
       {
@@ -72,7 +44,5 @@
     "**/*.mjs",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
