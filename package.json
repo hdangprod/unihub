@@ -7,6 +7,9 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --check './**/*.*' -u",
+    "format:fix": "prettier --write './**/*.*' -u",
     "start": "next start"
   },
   "dependencies": {
