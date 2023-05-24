@@ -6,7 +6,7 @@ interface IAuthLayoutProps {
 }
 export default function AuthLayout({ children }: IAuthLayoutProps) {
   return (
-    <div className="flex h-screen flex-row md:overflow-hidden">
+    <div className="flex h-screen flex-row ">
       <div className="hidden md:relative md:flex md:basis-6/12 lg:basis-7/12 ">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black via-black to-transparent opacity-40" />
         <div className="absolute bottom-1/4 p-4 text-white md:left-1/4 lg:-translate-x-1/2 ">
