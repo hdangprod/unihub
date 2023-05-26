@@ -7,7 +7,7 @@ export default function VideoBackground({
   isMute = true,
 }: IVideoBackgroundProps) {
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
+    <div className="relative -z-50 h-screen w-screen overflow-hidden">
       <iframe
         id="video-player"
         className="pointer-events-none absolute left-1/2 top-1/2 box-border h-[56.25vw] min-h-full w-[300%]  min-w-full -translate-x-1/2 -translate-y-1/2"
