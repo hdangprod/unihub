@@ -6,8 +6,8 @@ interface IHomeHomeLayoutProps {
 export default function HomeLayout({ children }: IHomeHomeLayoutProps) {
   const menuItems = [
     {
-      href: "/solo",
-      title: "Solo",
+      href: "/my-space",
+      title: "My Space",
       icon: "user",
     },
     {

@@ -9,7 +9,7 @@ interface IAuthLayoutProps {
 export default function AuthLayout({ children }: IAuthLayoutProps) {
   return (
     <div className="flex h-screen flex-row ">
-      <div className="hidden md:relative md:flex md:basis-6/12 lg:basis-7/12 ">
+      <div className="hidden md:relative md:flex md:w-6/12 lg:w-7/12 ">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black via-black to-transparent opacity-40" />
         <div>
           <Image
@@ -28,16 +28,16 @@ export default function AuthLayout({ children }: IAuthLayoutProps) {
             learn, teach, share, support and help each other.
           </p>
         </div>
-        <Image
-          src={loginImg}
-          alt="login image"
-          className="h-full w-full rounded-e-xl object-cover"
-          width="0"
-          height="0"
-          sizes="100vw"
-        />
+        <div className="h-full w-full bg-red-200">
+          <Image
+            src={loginImg}
+            alt="login"
+            className="h-full object-cover"
+            priority={true}
+          />
+        </div>
       </div>
-      <div className="basis-full md:basis-6/12 lg:basis-5/12">{children}</div>
+      <div className="w-full md:w-6/12 lg:w-5/12">{children}</div>
     </div>
   );
 }

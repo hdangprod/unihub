@@ -12,7 +12,7 @@ interface ISidebarProps {
 
 export default function Sidebar({ menuItems }: ISidebarProps) {
   return (
-    <aside className="w-28">
+    <aside>
       <nav className="fixed bottom-1/2 left-3 h-[97%] w-24 translate-y-1/2 rounded-xl border border-slate-200 bg-white px-2 drop-shadow-sd2">
         <div className="my-8">
           <Image
