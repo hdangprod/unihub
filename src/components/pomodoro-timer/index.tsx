@@ -1,5 +1,5 @@
 "use client";
-import { use, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HeroIcon from "../heroIcon";
 import { TimerFormat } from "@/utils/timerFormat";
 import { useInterval } from "@/hooks/useInterval";
@@ -15,8 +15,8 @@ export default function PomodoroTimer({
 }: IPromodorTimerProps) {
   const [mainTime, setMainTime] = useState(pomodoroTime);
   const [timeCounting, setTimeCounting] = useState(false);
-  const [working, setWorking] = useState(false);
-  const [resting, setResting] = useState(false);
+  const [working, setWorking] = useState(true);
+  const [reset, setReset] = useState(true);
 
   useInterval(
     () => {
@@ -30,11 +30,9 @@ export default function PomodoroTimer({
       setTimeCounting(false);
       if (working) {
         setMainTime(restTime);
-        setResting(true);
         setWorking(false);
       } else {
         setMainTime(pomodoroTime);
-        setResting(false);
         setWorking(true);
       }
     }
@@ -55,10 +53,13 @@ export default function PomodoroTimer({
   const resetTimer = () => {
     setMainTime(pomodoroTime); // 45 minutes
     setTimeCounting(false);
+    setWorking(true);
+    setReset(true);
   };
 
   const toggleTimer = () => {
     setTimeCounting(!timeCounting);
+    setReset(false);
   };
 
   const handleBellClick = () => {
@@ -67,24 +68,30 @@ export default function PomodoroTimer({
 
   return (
     <div className="flex w-2/3 flex-col items-center justify-center gap-1 rounded-xl bg-white py-4 drop-shadow-sd2">
-      <h1 className="mb-2 font-medium text-slate-400">Pomodoro Timer</h1>
+      <h1 className="mb-2 font-medium text-slate-400">{`${
+        working ? `Promodoro Timer` : `Resting`
+      }`}</h1>
       <div className="flex items-center gap-3">
-        <button
-          className="rounded-full p-2 text-slate-400 hover:bg-sky-50 hover:text-sky-400"
-          onClick={decreaseTimer}
-        >
-          <HeroIcon icon="minus" className="h-5 w-5" />
-        </button>
+        {reset && (
+          <button
+            className="rounded-full p-2 text-slate-400 hover:bg-sky-50 hover:text-sky-400"
+            onClick={decreaseTimer}
+          >
+            <HeroIcon icon="minus" className="h-5 w-5" />
+          </button>
+        )}
 
         <p className="text-3xl font-medium text-slate-500">
           {TimerFormat(mainTime)}
         </p>
-        <button
-          className="rounded-full p-2 text-slate-400 hover:bg-sky-50 hover:text-sky-400"
-          onClick={increaseTimer}
-        >
-          <HeroIcon icon="plus" className="h-5 w-5" />
-        </button>
+        {reset && (
+          <button
+            className="rounded-full p-2 text-slate-400 hover:bg-sky-50 hover:text-sky-400"
+            onClick={increaseTimer}
+          >
+            <HeroIcon icon="plus" className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       <div className="flex gap-2">
@@ -95,7 +102,7 @@ export default function PomodoroTimer({
           />
         </button>
 
-        <button onClick={() => toggleTimer()}>
+        <button onClick={toggleTimer}>
           <HeroIcon
             icon={timeCounting ? "pause" : "play"}
             className="box-content h-5 w-5 rounded-full p-2 text-sky-400 hover:bg-sky-50"
