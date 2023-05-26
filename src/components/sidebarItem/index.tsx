@@ -15,11 +15,11 @@ export default function SidebarItem({ href, title, icon }: ISidebarItemProps) {
     <div
       className={`
     ${isActive ? "bg-sky-50 text-sky-400" : "bg-white text-slate-500"}
-    group h-full w-full rounded-xl py-4  hover:bg-sky-50`}
+    group h-full w-full rounded-xl py-3  hover:outline hover:outline-sky-200`}
     >
-      <Link className="flex  flex-col items-center gap-2 " href={href}>
+      <Link className="flex  flex-col items-center gap-1 " href={href}>
         <HeroIcon icon={icon} className="h-6 w-6 text-sky-400 " />
-        <h1 className=" text-center text-xs  group-hover:text-sky-400 ">
+        <h1 className=" text-center text-[11px]  group-hover:text-sky-400 ">
           {title}
         </h1>
       </Link>

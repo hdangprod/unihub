@@ -1,3 +1,4 @@
+import VideoBackground from "@/components/video-background";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function MySpace() {
-  return <div className="h-screen w-screen"></div>;
+  return (
+    <div className="h-screen w-screen">
+      <VideoBackground id="GJ7jIOzLZwM" />
+    </div>
+  );
 }

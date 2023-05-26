@@ -27,7 +27,6 @@ const HeroIcon: React.FC<HeroIconProps> = ({
         version.startsWith("2") ? (mini ? "20/" : "24/") : ""
       }${outline ? "outline" : "solid"}/${icon}.svg`;
       const response = await fetch(url);
-      console.log("response", response);
       const svgText = await response.text();
       setSvg(svgText);
       setIsLoaded(true);
