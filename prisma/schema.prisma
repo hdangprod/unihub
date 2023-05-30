@@ -56,6 +56,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    todos         Todo[]
 }
 
 model VerificationToken {
@@ -64,4 +65,13 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+model Todo {
+    id String @id @default(cuid())
+    createAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+    text String
+    done Boolean @default(false)
+    user User @relation(fields: [userId], references: [id])
+    userId String
 }
