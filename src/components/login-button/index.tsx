@@ -10,7 +10,7 @@ export default function LoginButton() {
       onClick={() => void signIn("google", { callbackUrl: "/" })}
     >
       <Image src={googleLogo} alt="google icon" width={30} height={30} />
-      <span className="font-semibold text-slate-500">Login with Google</span>
+      <span className="font-semibold text-slate-500">Continue with Google</span>
     </button>
   );
 }
