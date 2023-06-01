@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import HeroIcon from "../heroIcon";
+import HeroIcon from "../../heroIcon";
 import { TimerFormat } from "@/utils/timerFormat";
 import { useInterval } from "@/hooks/useInterval";
 
@@ -67,7 +67,7 @@ export default function PomodoroTimer({
   };
 
   return (
-    <div className="flex w-2/3 flex-col items-center justify-center gap-1 rounded-xl bg-white py-4 drop-shadow-sd2">
+    <div className="flex w-80 flex-col items-center justify-center gap-1 rounded-xl bg-white py-4 drop-shadow-sd2">
       <h1 className="mb-2 font-medium text-slate-400">{`${
         working ? `Promodoro Timer` : `Resting`
       }`}</h1>
@@ -94,7 +94,7 @@ export default function PomodoroTimer({
         )}
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button onClick={resetTimer}>
           <HeroIcon
             icon="arrow-uturn-left"
