@@ -71,7 +71,7 @@ export default function PomodoroTimer({
       <h1 className="mb-2 font-medium text-slate-400">{`${
         working ? `Promodoro Timer` : `Resting`
       }`}</h1>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         {reset && (
           <button
             className="rounded-full p-2 text-slate-400 hover:bg-sky-50 hover:text-sky-400"

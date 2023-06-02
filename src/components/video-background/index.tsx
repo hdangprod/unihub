@@ -10,7 +10,7 @@ export default function VideoBackground({
     <div className="relative -z-50 h-screen w-screen overflow-hidden">
       <iframe
         id="video-player"
-        className="pointer-events-none absolute left-1/2 top-1/2 box-border h-[56.25vw] min-h-full w-[300%]  min-w-full -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 box-border h-[56.25vw] min-h-full w-[500%]  min-w-full -translate-x-1/2 -translate-y-1/2"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
         title="Deep sleep listening to the sound of the waves on the beach"
         width="640"

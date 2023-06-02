@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className="ml-60">
+      <div>
         <h1>My Page</h1>
         <ListUsers />
       </div>

@@ -34,6 +34,7 @@ export default function HomeLayout({ children }: IHomeHomeLayoutProps) {
   return (
     <div className="relative flex min-h-screen">
       <Sidebar menuItems={menuItems} />
+      <div className="w-36" />
       {children}
     </div>
   );

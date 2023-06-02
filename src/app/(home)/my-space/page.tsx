@@ -3,7 +3,7 @@ import VideoBackground from "@/components/video-background";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Page Title",
+  title: "My Space",
 };
 
 const actionMenu = [
@@ -37,8 +37,8 @@ const accessibleMenu = [
 
 export default function MySpace() {
   return (
-    <div className="relative">
-      <div className="absolute left-36 top-4">
+    <>
+      <div className="absolute left-36 top-4 z-10">
         <div className="flex flex-col gap-8">
           <ActionBar
             menuActionItems={actionMenu}
@@ -46,7 +46,9 @@ export default function MySpace() {
           />
         </div>
       </div>
-      {/* <VideoBackground id="GJ7jIOzLZwM" /> */}
-    </div>
+      <div className="absolute">
+        {/* <VideoBackground id="GJ7jIOzLZwM" /> */}
+      </div>
+    </>
   );
 }
