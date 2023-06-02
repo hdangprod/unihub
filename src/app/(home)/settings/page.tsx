@@ -1,9 +1,14 @@
 import GoogleButton from "@/components/google-button";
 import Input from "@/components/input";
-import Profile from "@/components/profile";
 import qrCode from "@/public/assets/images/qr-code-purchase.jpeg";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+
+const DynamicProfileComponent = dynamic(() => import("@/components/profile"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -18,7 +23,7 @@ export default function Settings() {
         <div className="flex w-full flex-col gap-2 md:w-1/2">
           <h2 className="text-lg font-medium text-slate-700">Public Profile</h2>
         </div>
-        <Profile />
+        <DynamicProfileComponent />
       </div>
 
       <div className=" flex w-full flex-col gap-5 border-t border-slate-300 py-5">
