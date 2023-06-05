@@ -44,7 +44,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  secret: env.NEXTAUTH_SECRET,
 };
 export const getServerAuthSession = (ctx: {
   req: GetServerSidePropsContext["req"];

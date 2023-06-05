@@ -1,9 +1,13 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import googleLogo from "@/public/assets/images/google-logo.png";
 import Image from "next/image";
 
 export default function GoogleButton() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get("callbackUrl");
+
   const { data: session } = useSession();
 
   return (
@@ -11,7 +15,9 @@ export default function GoogleButton() {
       {!session ? (
         <button
           className="flex w-1/2 items-center justify-center space-x-2 rounded-xl border border-slate-200 bg-white px-4 py-2 hover:drop-shadow-sd2"
-          onClick={() => void signIn("google", { callbackUrl: "/" })}
+          onClick={() =>
+            void signIn("google", { callbackUrl: callbackUrl || "/" })
+          }
         >
           <Image src={googleLogo} alt="google icon" width={30} height={30} />
           <span className="font-semibold text-slate-500">

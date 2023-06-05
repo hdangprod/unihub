@@ -10,22 +10,7 @@ export const todoRouter = createTRPCRouter({
         userId: ctx.session.user.id,
       },
     });
-    console.log(
-      "todos returned from prisma",
-      todos.map(({ id, text, done }) => ({ id, text, done }))
-    );
-    return [
-      {
-        id: "1",
-        text: "Hello world",
-        done: false,
-      },
-      {
-        id: "2",
-        text: "Hello world 2",
-        done: false,
-      },
-    ];
+    return todos.map(({ id, text, done }) => ({ id, text, done }));
   }),
   create: protectedProcedure
     .input(todoType)

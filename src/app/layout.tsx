@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
 import { TRPCProvider } from "src/provider/trpcProvider";
 import AuthProviders from "src/provider/authProvider";
 
