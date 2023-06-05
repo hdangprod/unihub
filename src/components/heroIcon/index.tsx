@@ -39,7 +39,7 @@ const HeroIcon: React.FC<HeroIconProps> = ({
       // Handle any errors during the fetchSvg operation
       console.error("Failed to fetch SVG:", error);
     });
-  }, [icon, mini, outline, version]);
+  }, [icon, outline, mini, version]);
 
   return (
     <div

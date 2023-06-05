@@ -1,5 +1,5 @@
 import HeroIcon from "@/components/heroIcon";
-import { Todo } from "@/server/api/routers/types/todoType";
+import { type Todo } from "@/server/api/routers/types/todoType";
 import { api } from "@/utils/api";
 
 export default function TodoItem({ text, id, done }: Todo) {
@@ -23,7 +23,7 @@ export default function TodoItem({ text, id, done }: Todo) {
       return { previousTodos };
     },
 
-    onSuccess: (err, {}) => {
+    onSuccess: () => {
       if (done) {
         console.log("Todo completed 🎉");
       }
