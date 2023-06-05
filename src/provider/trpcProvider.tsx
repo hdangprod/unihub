@@ -1,42 +1,42 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink, getFetch, loggerLink } from "@trpc/client";
-import { useState } from "react";
+import { httpBatchLink, loggerLink } from "@trpc/client";
+import { createTRPCReact } from "@trpc/react-query";
+import React, { useState } from "react";
 import superjson from "superjson";
-import { trpc } from "../utils/trpc";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { AppRouter } from "@/server/api/routers/root";
 
-export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: { queries: { staleTime: 5000 } },
-      })
-  );
+export const trpc = createTRPCReact<AppRouter>({
+  unstable_overrides: {
+    useMutation: {
+      async onSuccess(opts) {
+        await opts.originalFn();
+        await opts.queryClient.invalidateQueries();
+      },
+    },
+  },
+});
 
-  const url = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:3000/api/trpc/";
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return ""; // browser should use relative url
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
+  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+};
 
+export function TRPCProvider(props: { children: React.ReactNode }) {
+  const url = `${getBaseUrl()}/api/trpc`;
+
+  const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
         loggerLink({
-          enabled: () => true,
+          enabled: (opts) =>
+            process.env.NODE_ENV === "development" ||
+            (opts.direction === "down" && opts.result instanceof Error),
         }),
-        httpBatchLink({
-          url,
-          fetch: async (input, init?) => {
-            const fetch = getFetch();
-            return fetch(input, {
-              ...init,
-              credentials: "include",
-            });
-          },
-        }),
+        httpBatchLink({ url }),
       ],
       transformer: superjson,
     })
@@ -44,9 +44,8 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools />
+        {props.children}
       </QueryClientProvider>
     </trpc.Provider>
   );
-};
+}

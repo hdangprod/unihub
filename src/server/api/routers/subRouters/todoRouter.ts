@@ -1,6 +1,7 @@
-import { z } from "zod";
-import { todoInput } from "@/server/api/routers/types";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { todoType } from "@/server/api/routers/types/todoType";
+import { z } from "zod";
+// this is our data store, used to respond to incoming RPCs from the client
 
 export const todoRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -10,28 +11,29 @@ export const todoRouter = createTRPCRouter({
       },
     });
     console.log(
-      "todos from prisma",
+      "todos returned from prisma",
       todos.map(({ id, text, done }) => ({ id, text, done }))
     );
     return [
       {
-        id: 1,
-        text: "Hello World",
+        id: "1",
+        text: "Hello world",
         done: false,
       },
       {
-        id: 1,
-        text: "Hello World text 2",
-        done: true,
+        id: "2",
+        text: "Hello world 2",
+        done: false,
       },
     ];
   }),
   create: protectedProcedure
-    .input(todoInput)
+    .input(todoType)
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.todo.create({
+      const todo = await ctx.prisma.todo.create({
         data: {
           text: input,
+          done: false,
           user: {
             connect: {
               id: ctx.session.user.id,
@@ -39,26 +41,29 @@ export const todoRouter = createTRPCRouter({
           },
         },
       });
+      return todo;
     }),
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.todo.delete({
+      const todo = await ctx.prisma.todo.delete({
         where: {
           id: input,
         },
       });
+      return todo;
     }),
   toggle: protectedProcedure
-    .input(z.object({ id: z.string(), done: z.boolean() }))
-    .mutation(async ({ ctx, input: { id, done } }) => {
-      return ctx.prisma.todo.update({
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const todo = await ctx.prisma.todo.update({
         where: {
-          id,
+          id: input,
         },
         data: {
-          done,
+          done: true,
         },
       });
+      return todo;
     }),
 });

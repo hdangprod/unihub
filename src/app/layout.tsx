@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { TrpcProvider } from "src/provider/trpcProvider";
+import { TRPCProvider } from "src/provider/trpcProvider";
 import AuthProviders from "src/provider/authProvider";
 
 export default function RootLayout({
@@ -12,9 +12,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <TrpcProvider>
+        <TRPCProvider>
           <AuthProviders>{children}</AuthProviders>
-        </TrpcProvider>
+        </TRPCProvider>
       </body>
     </html>
   );
