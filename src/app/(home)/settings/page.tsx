@@ -1,10 +1,7 @@
 import GoogleButton from "@/components/google-button";
 import Purchase from "@/components/purchase/indes";
-import { authOptions } from "@/server/auth";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import dynamic from "next/dynamic";
-import { redirect } from "next/navigation";
 
 const DynamicProfileComponent = dynamic(() => import("@/components/profile"), {
   ssr: false,
@@ -14,11 +11,7 @@ const DynamicProfileComponent = dynamic(() => import("@/components/profile"), {
 export const metadata: Metadata = {
   title: "Settings",
 };
-export default async function Settings() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/login?callbackUrl=/settings");
-  }
+export default function Settings() {
   return (
     <div className=" mt-12 flex w-4/5 flex-col gap-5">
       <h1 className="text-2xl font-semibold text-slate-700">

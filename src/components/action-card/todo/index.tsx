@@ -1,10 +1,10 @@
 import { api } from "@/utils/api";
-import { useProtectPage } from "@/hooks/useProtectPage";
+import { UseProtectPage } from "@/hooks/useProtectPage";
 import TodoItem from "@/components/action-card/todo/todo-item";
 import CreateTodo from "@/components/action-card/todo/create-todo";
 
 export default function Todo() {
-  useProtectPage();
+  UseProtectPage();
   const { data: todos, isLoading, isError } = api.todoRouter.all.useQuery();
   if (isError) {
     return <div>Error</div>;

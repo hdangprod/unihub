@@ -26,7 +26,7 @@ export default function HomeLayout({ children }: IHomeHomeLayoutProps) {
       icon: "globe-alt",
     },
     {
-      href: "/settings-page",
+      href: "/settings",
       title: "Settings",
       icon: "cog-6-tooth",
     },
