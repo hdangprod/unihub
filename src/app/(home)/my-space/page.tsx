@@ -12,7 +12,7 @@ const actionMenu = [
     icon: "clock",
   },
   {
-    name: "sessionGoal",
+    name: "todo",
     icon: "list-bullet",
   },
   {

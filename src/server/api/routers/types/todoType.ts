@@ -10,4 +10,4 @@ export const todoType = z
     required_error: "Todo is required",
   })
   .min(1, "Todo must be at least 1 character long")
-  .max(50, "Todo must be at most 50 characters long");
+  .max(100, "Todo must be at most 50 characters long");

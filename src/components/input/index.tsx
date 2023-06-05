@@ -4,6 +4,9 @@ interface IInputProps {
   className?: string;
   type?: string;
   value?: string;
+  error?: string;
+  handleOnKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -12,6 +15,9 @@ export default function Input({
   className,
   type,
   value,
+  error,
+  handleOnKeyDown,
+  handleOnChange,
 }: IInputProps) {
   return (
     <div className="relative block">
@@ -24,6 +30,13 @@ export default function Input({
         placeholder={label}
         autoComplete="none"
         id={id}
+        onChange={handleOnChange}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleOnKeyDown && handleOnKeyDown(e);
+          }
+        }}
       />
       <label
         htmlFor={id}
@@ -31,6 +44,7 @@ export default function Input({
       >
         {label}
       </label>
+      {error && <p className="ml-2 mt-2 text-xs text-slate-400">{error}</p>}
     </div>
   );
 }

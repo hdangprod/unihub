@@ -39,14 +39,15 @@ export const todoRouter = createTRPCRouter({
       return todo;
     }),
   toggle: protectedProcedure
-    .input(z.string())
+    .input(z.object({ id: z.string(), done: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
+      const { id, done } = input;
       const todo = await ctx.prisma.todo.update({
         where: {
-          id: input,
+          id,
         },
         data: {
-          done: true,
+          done,
         },
       });
       return todo;

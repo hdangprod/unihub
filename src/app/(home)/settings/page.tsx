@@ -1,9 +1,10 @@
 import GoogleButton from "@/components/google-button";
-import Input from "@/components/input";
-import qrCode from "@/public/assets/images/qr-code-purchase.jpeg";
+import Purchase from "@/components/purchase/indes";
+import { authOptions } from "@/server/auth";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const DynamicProfileComponent = dynamic(() => import("@/components/profile"), {
   ssr: false,
@@ -13,7 +14,11 @@ const DynamicProfileComponent = dynamic(() => import("@/components/profile"), {
 export const metadata: Metadata = {
   title: "Settings",
 };
-export default function Settings() {
+export default async function Settings() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login?callbackUrl=/settings");
+  }
   return (
     <div className=" mt-12 flex w-4/5 flex-col gap-5">
       <h1 className="text-2xl font-semibold text-slate-700">
@@ -37,25 +42,7 @@ export default function Settings() {
             to purchase the premium.
           </p>
         </div>
-        <div className="flex">
-          <Image src={qrCode} alt="qr-code" className="w-32" />
-          <div className="ml-5 flex  flex-col">
-            <h3 className="text-lg font-medium text-slate-700">
-              Nguyễn Hải Đăng
-            </h3>
-            <p className="text-slate-500">0383251335</p>
-            <div className="mt-6 flex items-baseline gap-2">
-              <Input
-                id="transaction-code"
-                label="Transaction code"
-                type="number"
-              />
-              <button className="rounded-xl p-3 font-medium text-sky-400 hover:bg-sky-50">
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
+        <Purchase />
       </div>
       <div className=" flex w-full flex-col gap-5 border-t border-slate-300 py-5">
         <div className="flex w-full flex-col gap-2 md:w-1/2">

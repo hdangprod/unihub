@@ -2,7 +2,7 @@
 import { useState } from "react";
 import PomodoroTimer from "@/components/action-card/pomodoro-timer";
 import ActionItem from "./action-item";
-import SessionGoal from "@/components/action-card/session-goal";
+import Todo from "@/components/action-card/todo";
 
 interface IMenuItem {
   name: string;
@@ -64,8 +64,8 @@ export default function ActionBar({
             return (
               <PomodoroTimer pomodoroTime={2700} restTime={300} key={item} />
             );
-          case "sessionGoal":
-            return <SessionGoal key={item} />;
+          case "todo":
+            return <Todo key={item} />;
           default:
             return null;
         }
