@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Input from "@/components/input";
-import qrCode from "@/public/assets/images/qr-code-purchase.jpeg";
+import qrCode from "@/public/assets/image/qr-code-purchase.jpeg";
 
 export default function Purchase() {
   return (

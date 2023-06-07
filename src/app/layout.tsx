@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import "../styles/audioBar.css";
+
 import { TRPCProvider } from "src/provider/trpcProvider";
 import AuthProviders from "src/provider/authProvider";
 

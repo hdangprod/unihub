@@ -17,7 +17,7 @@ export default function Todo() {
       <h1 className="mb-2 text-center text-slate-400">Session Goals</h1>
       <div className="mt-3 flex flex-col gap-6">
         <div
-          className="flex max-h-[40vh] flex-col gap-3 overflow-y-auto"
+          className="flex max-h-[40vh] flex-col gap-1 overflow-y-auto"
           ref={todoContainerRef}
           id="todoContainer"
         >

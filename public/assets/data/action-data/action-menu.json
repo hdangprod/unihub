@@ -1,0 +1,14 @@
+[
+  {
+    "name": "timer",
+    "icon": "clock"
+  },
+  {
+    "name": "todo",
+    "icon": "list-bullet"
+  },
+  {
+    "name": "notes",
+    "icon": "document-text"
+  }
+]

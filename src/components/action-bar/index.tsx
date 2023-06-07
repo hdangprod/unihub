@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import PomodoroTimer from "@/components/action-card/pomodoro-timer";
-import ActionItem from "./action-item";
-import Todo from "@/components/action-card/todo";
+import ActionItem from "@/components/action-bar/action-item";
+import ActionCard from "../action-card";
 
 interface IMenuItem {
   name: string;
@@ -35,8 +34,10 @@ export default function ActionBar({
     }
   };
 
+  const combinedArray = [...selectedItems, ...selectedOption];
+
   return (
-    <div className="flex flex-col gap-7">
+    <>
       <div className="flex items-center gap-4">
         {menuActionItems.map((item) => (
           <ActionItem
@@ -57,19 +58,7 @@ export default function ActionBar({
           />
         ))}
       </div>
-
-      {selectedItems.map((item) => {
-        switch (item) {
-          case "timer":
-            return (
-              <PomodoroTimer pomodoroTime={2700} restTime={300} key={item} />
-            );
-          case "todo":
-            return <Todo key={item} />;
-          default:
-            return null;
-        }
-      })}
-    </div>
+      <ActionCard menuItem={combinedArray} />
+    </>
   );
 }

@@ -84,7 +84,7 @@ export default function TodoItem({ text, id, done }: Todo) {
   });
 
   return (
-    <div className="flex items-center">
+    <div className="group flex items-center rounded-2xl py-1">
       <label className="flex cursor-pointer items-center">
         <div className="relative">
           <input
@@ -113,7 +113,7 @@ export default function TodoItem({ text, id, done }: Todo) {
         </p>
       </label>
       <button
-        className="ml-auto pl-3"
+        className="ml-auto hidden pl-3 group-hover:block"
         onClick={() => {
           deleteMutation(id);
         }}

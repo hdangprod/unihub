@@ -1,0 +1,14 @@
+[
+  {
+    "name": "sound-controller",
+    "icon": "musical-note"
+  },
+  {
+    "name": "background-controller",
+    "icon": "photo"
+  },
+  {
+    "name": "inspirationalQuote-controller",
+    "icon": "light-bulb"
+  }
+]

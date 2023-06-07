@@ -1,7 +1,7 @@
 import Image from "next/image";
-import logo from "@/public/assets/images/logo.png";
+import logo from "@/public/assets/image/logo.png";
 
-import loginImg from "@/public/assets/images/login-screen.jpeg";
+import loginImg from "@/public/assets/image/login-screen.jpeg";
 
 interface IAuthLayoutProps {
   children: React.ReactNode;

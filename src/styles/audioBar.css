@@ -1,0 +1,41 @@
+/* Specifies the size of the audio container */
+audio {
+  width: 115px;
+  height: 25px;
+}
+
+/* WebKit-based browsers (Safari, Chrome) */
+audio::-webkit-media-controls-panel {
+  -webkit-justify-content: center;
+  height: 25px;
+}
+
+audio::-webkit-media-controls-timeline {
+  display: none !important;
+}
+
+audio::-webkit-media-controls-current-time-display {
+  display: none;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+  display: none;
+}
+
+/* Non-WebKit browsers (Firefox) */
+audio::-moz-media-controls-panel {
+  justify-content: center;
+  height: 25px;
+}
+
+audio::-moz-media-controls-timeline {
+  display: none !important;
+}
+
+audio::-moz-media-controls-currenttime-display {
+  display: none;
+}
+
+audio::-moz-media-controls-time-remaining-display {
+  display: none;
+}

@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import googleLogo from "@/public/assets/images/google-logo.png";
+import googleLogo from "@/public/assets/image/google-logo.png";
 import Image from "next/image";
 
 export default function GoogleButton() {
