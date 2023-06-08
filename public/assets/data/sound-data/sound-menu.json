@@ -2,36 +2,36 @@
   {
     "id": 1,
     "name": "Rain sound",
-    "src": "@/public/assets/sound/rain-sound.mp3"
+    "src": "/assets/sound/rain-sound.mp3"
   },
   {
     "id": 2,
     "name": "Binaural beats",
-    "src": "@/public/assets/sound/binauralbeats-sound.mp3"
+    "src": "/assets/sound/binauralbeats-sound.mp3"
   },
   {
     "id": 3,
     "name": "Lofi music",
-    "src": "@/public/assets/sound/lofi-sound.mp3"
+    "src": "/assets/sound/lofi-sound.mp3"
   },
   {
     "id": 4,
     "name": "Fireplace sound",
-    "src": "@/public/assets/sound/fire-sound.mp3"
+    "src": "/assets/sound/fire-sound.mp3"
   },
   {
     "id": 5,
     "name": "Library ambience",
-    "src": "@/public/assets/sound/library-sound.mp3"
+    "src": "/assets/sound/library-sound.mp3"
   },
   {
     "id": 6,
     "name": "Coffee shop ambience",
-    "src": "@/public/assets/sound/coffeeshop-sound.mp3"
+    "src": "/assets/sound/coffeeshop-sound.mp3"
   },
   {
     "id": 7,
     "name": "Nature sound",
-    "src": "@/public/assets/sound/nature-sound.mp3"
+    "src": "/assets/sound/nature-sound.mp3"
   }
 ]

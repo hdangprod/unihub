@@ -84,7 +84,7 @@ export default function TodoItem({ text, id, done }: Todo) {
   });
 
   return (
-    <div className="group flex items-center rounded-2xl py-1">
+    <div className="group flex items-center ">
       <label className="flex cursor-pointer items-center">
         <div className="relative">
           <input
@@ -104,6 +104,8 @@ export default function TodoItem({ text, id, done }: Todo) {
             {done && <HeroIcon icon="check" className="h-4 w-4 text-white" />}
           </div>
         </div>
+      </label>
+      <div className="flex w-full items-center border-b border-slate-200 py-2.5">
         <p
           className={`ml-3 cursor-pointer select-none ${
             done ? "text-slate-400 line-through" : "text-slate-600"
@@ -111,18 +113,18 @@ export default function TodoItem({ text, id, done }: Todo) {
         >
           {text}
         </p>
-      </label>
-      <button
-        className="ml-auto hidden pl-3 group-hover:block"
-        onClick={() => {
-          deleteMutation(id);
-        }}
-      >
-        <HeroIcon
-          icon="trash"
-          className="h-5 w-5 text-slate-400 hover:text-yellow-500"
-        />
-      </button>
+        <button
+          className="ml-auto hidden pl-3 group-hover:block"
+          onClick={() => {
+            deleteMutation(id);
+          }}
+        >
+          <HeroIcon
+            icon="trash"
+            className="h-5 w-5 text-slate-400 hover:text-yellow-500"
+          />
+        </button>
+      </div>
     </div>
   );
 }
