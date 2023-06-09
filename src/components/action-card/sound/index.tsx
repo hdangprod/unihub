@@ -61,10 +61,11 @@ export default function Sound({ isShow }: { isShow: boolean }) {
   return (
     <div
       className={`
-        ${isShow ? "flex" : "hidden"}
-       min-w-80  min-h-[50vh] w-full flex-col  gap-1 rounded-xl bg-white px-6  drop-shadow-sd2`}
+        ${
+          isShow ? "flex" : "hidden"
+        } min-w-80  min-h-[50vh] w-full flex-col  gap-1 rounded-xl bg-white px-6 py-7  drop-shadow-sd2`}
     >
-      <h1 className="mb-4 mt-6 text-center text-slate-400">Sound</h1>
+      <h1 className="mb-4 text-center text-slate-400">Sound</h1>
       <div className="flex flex-col gap-2 overflow-y-auto">
         {soundList.map((sound, index) => (
           <div key={index}>

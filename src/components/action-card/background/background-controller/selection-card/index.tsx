@@ -1,16 +1,16 @@
 import Image from "next/image";
-import img from "@/public/assets/image/login-screen.jpeg";
-export default function SelectionCard() {
-  {
-    /* make image card with object fit square 3 column */
-  }
+import { extractYouTubeId } from "@/utils/extractYoutubeId";
+export default function SelectionCard({ youtubeSrc }: { youtubeSrc: string }) {
+  const youtubeId = extractYouTubeId(youtubeSrc) || "";
   return (
-    <button className="rounded-lg bg-gray-300">
+    <div className=" h-full w-full overflow-hidden rounded-lg bg-cover bg-no-repeat ring-sky-300 hover:ring-2">
       <Image
-        src={img}
-        alt="hello"
-        className="h-full w-full rounded-lg object-cover hover:outline hover:outline-sky-400"
+        src={`http://img.youtube.com/vi/${youtubeId}/0.jpg`}
+        width={1600}
+        height={1600}
+        className="h-full scale-[1.35] object-cover transition duration-300 ease-in-out hover:scale-[1.5]"
+        alt="Louvre"
       />
-    </button>
+    </div>
   );
 }
