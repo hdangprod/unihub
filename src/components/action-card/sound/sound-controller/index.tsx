@@ -22,7 +22,7 @@ export default function SoundController({
             <HeroIcon
               outline={false}
               icon="speaker-x-mark"
-              className="mr-2 h-5 w-5 text-yellow-500 hover:text-yellow-600"
+              className="mr-2 h-5 w-5 text-slate-400 hover:text-slate-500"
             />
           ) : (
             <HeroIcon

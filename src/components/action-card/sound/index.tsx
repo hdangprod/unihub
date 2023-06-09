@@ -5,7 +5,6 @@ import SoundController from "@/components/action-card/sound/sound-controller";
 
 export default function Sound({ isShow }: { isShow: boolean }) {
   const audioRefs = useRef<HTMLAudioElement[]>([]);
-  const [previousVolume, setPreviousVolume] = useState<number>(0);
   audioRefs.current = [];
 
   const [volumeList, setVolumeList] = useState<number[]>(
@@ -40,25 +39,16 @@ export default function Sound({ isShow }: { isShow: boolean }) {
       const audioElement = audioRefs.current[index] as HTMLAudioElement;
       void audioElement.play();
       // Set to mute
-      if (previousVolume === 0) {
-        setVolumeList((prevVolumeList) => {
-          audioElement.volume = 0.5;
-          const newVolumeList = [...prevVolumeList];
-          newVolumeList[index] = 0.5;
-          setPreviousVolume(0.5);
-          return newVolumeList;
-        });
-      } else if (previousVolume !== 0 && audioElement.volume !== 0) {
+
+      if (audioElement.volume !== 0) {
         audioElement.volume = 0;
-        setPreviousVolume(0.5);
         setVolumeList((prevVolumeList) => {
           const newVolumeList = [...prevVolumeList];
           newVolumeList[index] = audioElement.volume;
           return newVolumeList;
         });
-      } else if (previousVolume !== 0 && audioElement.volume === 0) {
+      } else {
         setVolumeList((prevVolumeList) => {
-          setPreviousVolume(0.5);
           audioElement.volume = 0.5;
           const newVolumeList = [...prevVolumeList];
           newVolumeList[index] = 0.5;
@@ -74,7 +64,7 @@ export default function Sound({ isShow }: { isShow: boolean }) {
         ${isShow ? "flex" : "hidden"}
        min-w-80  min-h-[50vh] w-full flex-col  gap-1 rounded-xl bg-white px-6  drop-shadow-sd2`}
     >
-      <h1 className="mb-2 mt-6 text-center text-slate-400">Sound</h1>
+      <h1 className="mb-4 mt-6 text-center text-slate-400">Sound</h1>
       <div className="flex flex-col gap-2 overflow-y-auto">
         {soundList.map((sound, index) => (
           <div key={index}>

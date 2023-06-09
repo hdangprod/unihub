@@ -6,9 +6,5 @@
   {
     "name": "todo",
     "icon": "list-bullet"
-  },
-  {
-    "name": "notes",
-    "icon": "document-text"
   }
 ]

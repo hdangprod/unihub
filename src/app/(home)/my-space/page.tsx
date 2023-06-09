@@ -3,8 +3,6 @@ import Background from "@/components/action-card/background";
 import type { Metadata } from "next";
 import actionMenu from "@/public/assets/data/action-data/action-menu.json";
 import accessibleMenu from "@/public/assets/data/action-data/accessible-menu.json";
-import soundList from "@/public/assets/data/sound-data/sound-menu.json";
-import ActionCard from "@/components/action-card";
 
 export const metadata: Metadata = {
   title: "My Space",

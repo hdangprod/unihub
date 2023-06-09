@@ -20,7 +20,7 @@ export default function Input({
   handleOnChange,
 }: IInputProps) {
   return (
-    <div className="relative block">
+    <div className="relative mx-1 block">
       <input
         className={`placeholder-shown:ring-none focus:border-primary focus:ring-primary peer rounded-xl p-3 placeholder-transparent ring-1 ring-slate-300 placeholder-shown:bg-slate-100 placeholder-shown:ring-0 hover:ring-1 hover:ring-slate-300 focus:bg-white focus:outline-none focus:ring-2 ${
           className || ""
