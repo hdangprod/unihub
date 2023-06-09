@@ -4,7 +4,7 @@ interface IShowBackground {
   background: string;
   setShowBackground: (background: string) => void;
 }
-export const useShowBackground = create<IShowBackground>((set) => ({
+export const useControlBackground = create<IShowBackground>((set) => ({
   background: "",
   setShowBackground: (background) => {
     set(() => ({

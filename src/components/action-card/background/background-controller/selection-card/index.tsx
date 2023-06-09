@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { extractYouTubeId } from "@/utils/extractYoutubeId";
-import { useShowBackground } from "@/store/useShowBackground";
+import { useControlBackground } from "@/store/useControlBackground";
 
 interface ISelectionCardProps {
   youtubeSrc: string;
 }
 
 export default function SelectionCard({ youtubeSrc }: ISelectionCardProps) {
-  const { setShowBackground } = useShowBackground();
+  const { setShowBackground } = useControlBackground();
   const youtubeId = extractYouTubeId(youtubeSrc) || "";
 
   return (

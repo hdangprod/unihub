@@ -1,6 +1,5 @@
 import SelectionCard from "@/components/action-card/background/background-controller/selection-card";
 import backgroundList from "@/public/assets/data/background-data/background-option.json";
-import { useShowBackground } from "@/store/useShowBackground";
 
 export default function BackgroundController() {
   return (

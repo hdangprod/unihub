@@ -28,6 +28,8 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/interfaces/*": ["src/interfaces/*"],
       "@/store/*": ["src/store/*"],
+      "@/api/*": ["src/api/*"],
+      "@/interface/*": ["src/interface/*"],
       "@/app/*": ["src/app/*"]
     },
     "plugins": [

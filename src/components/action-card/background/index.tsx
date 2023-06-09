@@ -1,11 +1,11 @@
 "use client";
-import { useShowBackground } from "@/store/useShowBackground";
+import { useControlBackground } from "@/store/useControlBackground";
 
 interface IVideoBackgroundProps {
   isMute?: boolean;
 }
 export default function Background({ isMute = true }: IVideoBackgroundProps) {
-  const { background } = useShowBackground();
+  const { background } = useControlBackground();
 
   return (
     <div className="relative -z-50 h-screen w-screen overflow-hidden">
