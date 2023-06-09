@@ -19,7 +19,9 @@ export default function MySpace() {
           />
         </div>
       </div>
-      <div className="absolute">{/* <Background id="GJ7jIOzLZwM" /> */}</div>
+      <div className="absolute">
+        <Background />
+      </div>
     </>
   );
 }
