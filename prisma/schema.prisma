@@ -61,6 +61,8 @@ model User {
     email         String?            @unique
     emailVerified DateTime?
     image         String?
+    isPurchase    Boolean            @default(false)
+    isAdmin       Boolean            @default(false)
     accounts      Account[]
     sessions      Session[]
     todos         Todo[]

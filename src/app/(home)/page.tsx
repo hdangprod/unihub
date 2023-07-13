@@ -4,7 +4,7 @@ import landingImg from "@/public/assets/image/landing-page.png";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "My Page Title",
+  title: "Home",
 };
 
 export default function Page() {

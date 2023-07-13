@@ -10,7 +10,9 @@ interface ISidebarItemProps {
 }
 export default function SidebarItem({ href, title, icon }: ISidebarItemProps) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const currentPath = pathname?.split("/")[1];
+  const isActive = currentPath === href.split("/")[1];
+
   return (
     <div
       className={`
