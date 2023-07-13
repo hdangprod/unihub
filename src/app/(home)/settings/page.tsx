@@ -14,9 +14,14 @@ export const metadata: Metadata = {
 export default function Settings() {
   return (
     <div className=" mt-12 flex w-4/5 flex-col gap-5">
-      <h1 className="text-2xl font-semibold text-slate-700">
-        General Settings
-      </h1>
+      <div>
+        <h1 className="text-2xl font-semibold text-slate-700">
+          General Settings
+        </h1>
+        <h1 className="mt-2 text-slate-500">
+          Manage your account and elevate your experience.
+        </h1>
+      </div>
       <div className=" flex w-full flex-col gap-5 border-t border-slate-300 py-5">
         <div className="flex w-full flex-col gap-2 md:w-1/2">
           <h2 className="text-lg font-medium text-slate-700">Public Profile</h2>

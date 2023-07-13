@@ -69,7 +69,7 @@ export default function PomodoroTimer({
   return (
     <div className="min-w-80 flex w-full flex-col items-center justify-center gap-1 rounded-xl bg-white py-5 drop-shadow-sd2">
       <h1 className="my-2 text-slate-400">{`${
-        working ? `Promodoro Timer` : `Resting`
+        working ? `Pomodoro Timer` : `Resting`
       }`}</h1>
       <div className="flex items-center gap-5">
         {reset && (

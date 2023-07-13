@@ -20,9 +20,7 @@ export default function MySpace() {
           />
         </div>
       </div>
-      <div className="absolute">
-        <Background />
-      </div>
+      <div className="absolute">{/* <Background /> */}</div>
       <div className="absolute right-20 top-1/2 z-10 w-96 -translate-y-1/2 ">
         <Quote />
       </div>

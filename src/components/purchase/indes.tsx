@@ -10,6 +10,7 @@ export default function Purchase() {
       <div className="ml-5 flex  flex-col">
         <h3 className="text-lg font-medium text-slate-700">Nguyễn Hải Đăng</h3>
         <p className="text-slate-500">0383251335</p>
+        <p className="text-slate-500">49,000đ</p>
         <div className="mt-6 flex items-baseline gap-2">
           <Input id="transaction-code" label="Transaction code" type="number" />
           <button className="rounded-xl p-3 font-medium text-sky-400 hover:bg-sky-50">
