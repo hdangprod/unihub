@@ -1,27 +1,32 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { ChannelInput } from "../types/channelType";
 import { RtcRole, RtcTokenBuilder } from "agora-token";
+import { z } from "zod";
 
 export const channelRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
     const channels = await ctx.prisma.studyChannel.findMany();
-    return channels.map(({ id, channelName }) => ({ id, channelName }));
+    return channels.map(({ id, channelName, channelDescription }) => ({
+      id,
+      channelName,
+      channelDescription,
+    }));
   }),
   allByUser: protectedProcedure.query(async ({ ctx }) => {
-    const channels = await ctx.prisma.studyChannel.findUnique({
+    const channel = await ctx.prisma.studyChannel.findUnique({
       where: {
         creatorId: ctx.session.user.id,
       },
     });
-    return channels;
+    return channel;
   }),
   create: protectedProcedure
-    .input(ChannelInput)
-    .mutation(async ({ ctx, input }) => {
+    .input(
+      z.object({ channelName: z.string(), channelDescription: z.string() })
+    )
+    .mutation(async ({ input, ctx }) => {
       const channel = await ctx.prisma.studyChannel.create({
         data: {
-          channelName: input,
-          channelDescription: input,
+          ...input,
           creator: {
             connect: {
               id: ctx.session.user.id,

@@ -104,7 +104,7 @@ export default function Payment() {
               </div>
             </div>
             <div className="h-fit w-full rounded-xl bg-amber-100">
-              <div className="flex w-96 flex-col rounded-xl bg-white p-8 drop-shadow-sd2 transition-all hover:translate-x-3 hover:translate-y-3 md:w-full">
+              <div className="flex w-96 flex-col rounded-xl border border-amber-200 bg-white p-8 drop-shadow-sd2 transition-all hover:translate-x-3 hover:translate-y-3 md:w-full">
                 <h5 className=" text-xl font-medium text-slate-700">
                   Premium plan
                 </h5>

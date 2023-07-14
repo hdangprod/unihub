@@ -3,9 +3,11 @@ import { useState } from "react";
 import { todoType } from "@/server/api/routers/types/todoType";
 import { api } from "@/utils/api";
 import Input from "@/components/input";
+import { useForm } from "react-hook-form";
 
 export default function CreateTodo() {
   const [newTodo, setNewTodo] = useState("");
+  const { register, handleSubmit } = useForm();
 
   const trpc = api.useContext();
 
@@ -51,14 +53,14 @@ export default function CreateTodo() {
   };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(handleOnKeyDown)}>
         <Input
           id="task"
           label="Add new task"
           className="w-full"
           error="Enter to submit"
           value={newTodo}
-          handleOnChange={(e) => setNewTodo(e.target.value)}
+          onChange={(e) => setNewTodo(e.target.value)}
           handleOnKeyDown={handleOnKeyDown}
         />
       </form>

@@ -1,8 +1,7 @@
 "use client";
 import Input from "@/components/input";
-import HeroIcon from "@/components/heroIcon";
 import ChannelCard from "@/components/channel-card";
-import ChannelCreationn from "@/components/channel-creation";
+import ChannelCreation from "@/components/channel-creation";
 
 export default function Group() {
   return (
@@ -22,7 +21,7 @@ export default function Group() {
             className="w-full"
           />
         </div>
-        <ChannelCreationn />
+        <ChannelCreation />
       </div>
       <div>
         <h1 className="mb-8 text-xl font-medium text-slate-500">
