@@ -5,6 +5,7 @@ interface IInputProps {
   type?: string;
   value?: string;
   error?: string;
+  required?: boolean;
   handleOnKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -16,6 +17,7 @@ export default function Input({
   type,
   value,
   error,
+  required,
   handleOnKeyDown,
   onChange,
 }: IInputProps) {
@@ -26,6 +28,7 @@ export default function Input({
           className || ""
         }`}
         type={type}
+        required={required}
         value={value}
         placeholder={label}
         autoComplete="none"

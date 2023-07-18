@@ -3,7 +3,6 @@ import {
   config,
   useClient,
   useMicrophoneAndCameraTracks,
-  channelName,
 } from "@/utils/videoCallSettings";
 import Videos from "./video";
 import Controls from "./controller";
@@ -11,14 +10,23 @@ import type { IAgoraRTCRemoteUser } from "agora-rtc-react";
 
 interface IVideoCallProps {
   setInCall: React.Dispatch<React.SetStateAction<boolean>>;
+  channelName: string;
+  token: string;
+  uid: string;
 }
 
-export default function VideoCall({ setInCall }: IVideoCallProps) {
+export default function VideoCall({
+  setInCall,
+  channelName,
+  token,
+  uid,
+}: IVideoCallProps) {
   const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([]);
   const [start, setStart] = useState(false);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
 
+  console.log("this is token", token);
   useEffect(() => {
     const init = async (name: string) => {
       client.on("user-published", async (user, mediaType) => {
@@ -51,7 +59,7 @@ export default function VideoCall({ setInCall }: IVideoCallProps) {
       });
 
       try {
-        await client.join(config.appId, name, config.token, null);
+        await client.join(config.appId, name, token, uid);
       } catch (error) {
         console.log("error");
       }
@@ -64,7 +72,7 @@ export default function VideoCall({ setInCall }: IVideoCallProps) {
       console.log("init ready");
       init(channelName).catch(console.error);
     }
-  }, [channelName, client, ready, tracks]);
+  }, [channelName, client, ready, tracks, token, uid]);
 
   return (
     <div>

@@ -3,14 +3,35 @@ import { useState } from "react";
 import HeroIcon from "@/components/heroIcon";
 import Modal from "@/components/modal";
 import Input from "../input";
+import { api } from "@/utils/api";
+import { useRouter } from "next/navigation";
 
 export default function ChannelCreation() {
+  const createChannel = api.channelRouter.create.useMutation();
+
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [roomName, setRoomName] = useState("");
-  const [roomDescription, setRoomDescription] = useState("");
+  const [formData, setFormData] = useState({
+    channelName: "",
+    channelDescription: "",
+  });
 
   const handleCreateRoom = () => {
     setIsOpen(true);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const createdChannel = await createChannel.mutateAsync(formData);
+    router.push(`/group/${createdChannel.id}`);
+    setIsOpen(false);
   };
 
   return (
@@ -28,44 +49,41 @@ export default function ChannelCreation() {
           <p className="mb-5 text-sm text-slate-400">
             How does your ideal study space look like? Define your space now.
           </p>
-          <div className="my-8 flex flex-col gap-6">
-            <Input
-              value={roomName}
-              id="roomName"
-              label="Input your room name"
-              className="w-full"
-              onChange={(e) => {
-                setRoomName(e.target.value);
-              }}
-            />
-            <Input
-              value={roomDescription}
-              id="roomDescription"
-              label="Tell something about your room"
-              className="w-full"
-              onChange={(e) => {
-                setRoomDescription(e.target.value);
-              }}
-            />
-          </div>
-          <div className="flex justify-end gap-2">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-              }}
-              className="rounded-xl px-5 py-2 text-sky-500 transition-colors hover:bg-sky-100"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => {
-                setIsOpen(false);
-              }}
-              className="rounded-xl bg-sky-400 px-5 py-2 text-white transition-colors hover:bg-sky-500 hover:text-white"
-            >
-              Create Room
-            </button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="my-8 flex flex-col gap-6">
+              <Input
+                required
+                value={formData.channelName}
+                id="channelName"
+                label="Input your channel name"
+                className="w-full"
+                onChange={handleChange}
+              />
+              <Input
+                value={formData.channelDescription}
+                id="channelDescription"
+                label="Tell something about your channel"
+                className="w-full"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+                className="rounded-xl px-5 py-2 text-sky-500 transition-colors hover:bg-sky-100"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="rounded-xl bg-sky-400 px-5 py-2 text-white transition-colors hover:bg-sky-500 hover:text-white"
+              >
+                Create Room
+              </button>
+            </div>
+          </form>
         </div>
       </Modal>
       <button

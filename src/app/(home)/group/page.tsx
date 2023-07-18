@@ -2,8 +2,11 @@
 import Input from "@/components/input";
 import ChannelCard from "@/components/channel-card";
 import ChannelCreation from "@/components/channel-creation";
+import { api } from "@/utils/api";
 
 export default function Group() {
+  const { data: channels, isLoading } = api.channelRouter.getAll.useQuery();
+
   return (
     <div className=" flex w-5/6 flex-col gap-5 py-12">
       <div>
@@ -25,14 +28,23 @@ export default function Group() {
       </div>
       <div>
         <h1 className="mb-8 text-xl font-medium text-slate-500">
-          Favorite Community
+          Community channels
         </h1>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-          <ChannelCard />
-          <ChannelCard />
-          <ChannelCard />
-          <ChannelCard />
-          <ChannelCard />
+          {channels?.length ? (
+            channels.map((channel) => (
+              <ChannelCard
+                key={channel.id}
+                channelId={channel.id}
+                channelName={channel.channelName}
+                channelDescription={channel.channelDescription || ""}
+              />
+            ))
+          ) : (
+            <div className="select-none text-center text-slate-300">
+              {isLoading ? "Loading..." : "Empty channel!"}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { RtcRole, RtcTokenBuilder } from "agora-token";
 import { z } from "zod";
 
 export const channelRouter = createTRPCRouter({
-  all: protectedProcedure.query(async ({ ctx }) => {
+  getAll: protectedProcedure.query(async ({ ctx }) => {
     const channels = await ctx.prisma.studyChannel.findMany();
     return channels.map(({ id, channelName, channelDescription }) => ({
       id,
@@ -11,14 +11,44 @@ export const channelRouter = createTRPCRouter({
       channelDescription,
     }));
   }),
-  allByUser: protectedProcedure.query(async ({ ctx }) => {
-    const channel = await ctx.prisma.studyChannel.findUnique({
+  getAllByUser: protectedProcedure.query(async ({ ctx }) => {
+    const channel = await ctx.prisma.studyChannel.findFirst({
       where: {
         creatorId: ctx.session.user.id,
       },
     });
     return channel;
   }),
+  getToken: protectedProcedure
+    .input(
+      z.object({
+        channelId: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      const appId = process.env.AGORA_APP_ID as string;
+      const appCertificate = process.env.AGORA_APP_CERTIFICATE as string;
+      const channelName = input.channelId;
+      const account = ctx.session.user.id;
+      const role = RtcRole.PUBLISHER;
+
+      const expirationTimeInSeconds = 3600;
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      const privilege_expire = currentTimestamp + expirationTimeInSeconds;
+      const token_expire = 1000000;
+      // Build token with user account
+      const token = RtcTokenBuilder.buildTokenWithUserAccount(
+        appId,
+        appCertificate,
+        channelName,
+        account,
+        role,
+        token_expire,
+        privilege_expire
+      );
+
+      return { token, account };
+    }),
   create: protectedProcedure
     .input(
       z.object({ channelName: z.string(), channelDescription: z.string() })
@@ -34,32 +64,7 @@ export const channelRouter = createTRPCRouter({
           },
         },
       });
+
       return channel;
     }),
 });
-
-const appID = "a51f4c5812894feb8bfa6413673062dd";
-const appCertificate = "068d1a1f7a4d45c9b55ce6c7b753ac8e";
-const channelName = "7d72365eb983485397e3e3f9d460bdda";
-const account = "2882341273";
-const role = RtcRole.PUBLISHER;
-
-const expirationTimeInSeconds = 3600;
-
-const currentTimestamp = Math.floor(Date.now() / 1000);
-
-const privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds;
-
-const token_expire = 2629746;
-
-// Build token with user account
-const tokenB = RtcTokenBuilder.buildTokenWithUserAccount(
-  appID,
-  appCertificate,
-  channelName,
-  account,
-  role,
-  token_expire,
-  privilegeExpiredTs
-);
-console.log("Token With UserAccount: ", tokenB);
