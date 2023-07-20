@@ -6,7 +6,7 @@ import {
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "@/env/env.mjs";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/server/db";
+import { prisma } from "@/server/lib/db";
 import { type GetServerSidePropsContext } from "next";
 
 declare module "next-auth" {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { todoType } from "@/server/api/routers/types/todoType";
+import { createTodoInputSchema } from "@/server/validations/todoInputSchema";
 import { api } from "@/utils/api";
 import Input from "@/components/input";
 
@@ -43,7 +43,7 @@ export default function CreateTodo() {
   });
 
   const handleOnKeyDown = () => {
-    const result = todoType.safeParse(newTodo);
+    const result = createTodoInputSchema.safeParse(newTodo);
     if (!result.success) {
       console.log("not valid");
     }

@@ -1,6 +1,6 @@
-import { todoRouter } from "@/server/api/routers/subRouters/todoRouter";
-import { createTRPCRouter } from "@/server/api/trpc";
-import { channelRouter } from "./subRouters/channelRouter";
+import { todoRouter } from "@/server/routers/todoRouter";
+import { createTRPCRouter } from "@/server/lib/trpc";
+import { channelRouter } from "./channelRouter";
 
 /**
  * This is the primary router for your server.

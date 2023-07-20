@@ -1,6 +1,7 @@
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/lib/trpc";
 import { RtcRole, RtcTokenBuilder } from "agora-token";
 import { z } from "zod";
+import { createChannelInputSchema } from "../validations/channelInputSChema";
 
 export const channelRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -50,9 +51,7 @@ export const channelRouter = createTRPCRouter({
       return { token, account };
     }),
   create: protectedProcedure
-    .input(
-      z.object({ channelName: z.string(), channelDescription: z.string() })
-    )
+    .input(createChannelInputSchema)
     .mutation(async ({ input, ctx }) => {
       const channel = await ctx.prisma.studyChannel.create({
         data: {

@@ -1,5 +1,5 @@
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { todoType } from "@/server/api/routers/types/todoType";
+import { createTRPCRouter, protectedProcedure } from "@/server/lib/trpc";
+import { createTodoInputSchema } from "@/server/validations/todoInputSchema";
 import { z } from "zod";
 // this is our data store, used to respond to incoming RPCs from the client
 
@@ -13,7 +13,7 @@ export const todoRouter = createTRPCRouter({
     return todos.map(({ id, text, done }) => ({ id, text, done }));
   }),
   create: protectedProcedure
-    .input(todoType)
+    .input(createTodoInputSchema)
     .mutation(async ({ ctx, input }) => {
       const todo = await ctx.prisma.todo.create({
         data: {

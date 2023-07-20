@@ -5,7 +5,7 @@ import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import React, { useState } from "react";
 import superjson from "superjson";
-import type { AppRouter } from "@/server/api/routers/root";
+import type { AppRouter } from "@/server/routers/root";
 
 export const trpc = createTRPCReact<AppRouter>({
   unstable_overrides: {
