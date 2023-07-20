@@ -1,4 +1,10 @@
 import { z } from "zod";
+import type { AppRouter } from "@/server/routers/root";
+import type { inferRouterOutputs } from "@trpc/server";
+
+type RouterOutputs = inferRouterOutputs<AppRouter>;
+type allTodosOutput = RouterOutputs["todoRouter"]["all"];
+export type Todo = allTodosOutput[number];
 
 export const createTodoInputSchema = z
   .string({
