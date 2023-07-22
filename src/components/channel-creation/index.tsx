@@ -30,6 +30,7 @@ export default function ChannelCreation() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const createdChannel = await createChannel.mutateAsync(formData);
+    console.log(createdChannel);
     router.push(`/group/${createdChannel.id}`);
     setIsOpen(false);
   };
