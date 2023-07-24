@@ -14,8 +14,11 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
-
-  return channels;
+  return channels.map((channel) => {
+    return {
+      groupId: channel.id,
+    };
+  });
 }
 
 export default function GroupId({ params }: IGroupIdProps) {
