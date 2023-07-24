@@ -1,10 +1,8 @@
-"use client";
-import { api } from "@/utils/api";
+import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
 
-const VideoCall = dynamic(() => import("@/components/video-call"), {
-  ssr: false,
+const Test4 = dynamic(() => import("@/components/test4"), {
+  ssr: true,
 });
 
 interface IGroupIdProps {
@@ -12,39 +10,14 @@ interface IGroupIdProps {
     groupId: string;
   };
 }
+export const dynamicParams = false;
 
-export const dynamicParams = true; // true | false,
+export async function generateStaticParams() {
+  const channels = await fetchAllChannels();
 
-export function generateStaticParams() {
-  const { data: channels } = api.channelRouter.getAll.useQuery();
-  return channels?.map((channel) => ({ groupId: channel.id })) || [];
+  return channels;
 }
+
 export default function GroupId({ params }: IGroupIdProps) {
-  const [inCall, setInCall] = useState(false);
-
-  const { data: channelTokenRouter } = api.channelRouter.getToken.useQuery({
-    channelId: params.groupId,
-  });
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div>
-        {inCall ? (
-          <VideoCall
-            uid={channelTokenRouter?.account as string}
-            token={channelTokenRouter?.token as string}
-            channelName={params.groupId}
-            setInCall={setInCall}
-          />
-        ) : (
-          <button
-            className=" rounded bg-sky-400 p-4 text-white"
-            onClick={() => setInCall(true)}
-          >
-            Start Call
-          </button>
-        )}
-      </div>
-    </Suspense>
-  );
+  return <Test4 params={params} />;
 }
