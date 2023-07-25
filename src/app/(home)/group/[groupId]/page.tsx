@@ -1,9 +1,6 @@
+import Test4 from "@/components/test4";
 import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
-import dynamic from "next/dynamic";
-
-const Test4 = dynamic(() => import("@/components/test4"), {
-  ssr: true,
-});
+// import dynamic from "next/dynamic";
 
 interface IGroupIdProps {
   params: {
