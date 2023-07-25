@@ -2,7 +2,7 @@ import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
 import dynamic from "next/dynamic";
 
 const Test4 = dynamic(() => import("@/components/test4"), {
-  ssr: false,
+  ssr: true,
 });
 
 interface IGroupIdProps {
@@ -10,6 +10,8 @@ interface IGroupIdProps {
     groupId: string;
   };
 }
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
