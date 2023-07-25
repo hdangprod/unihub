@@ -6,7 +6,6 @@ await import("./src/env/env.mjs");
 
 /** @type {import("next").NextConfig} */
 const config = {
-  trailingSlash: true,
   reactStrictMode: true,
 
   /**
