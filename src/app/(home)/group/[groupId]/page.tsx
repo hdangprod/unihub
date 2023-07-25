@@ -7,7 +7,7 @@ interface IGroupIdProps {
   };
 }
 export const dynamicParams = true;
-export const dynamic = "force-dynamic";
+export const dynamic = "auto";
 
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
