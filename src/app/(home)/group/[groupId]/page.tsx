@@ -1,5 +1,5 @@
 import Test4 from "@/components/test4";
-// import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
+import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
 import { Suspense } from "react";
 
 interface IGroupIdProps {
@@ -7,14 +7,18 @@ interface IGroupIdProps {
     groupId: string;
   };
 }
-// export async function generateStaticParams() {
-//   const channels = await fetchAllChannels();
-//   return channels.map((channel) => {
-//     return {
-//       groupId: channel.id,
-//     };
-//   });
-// }
+export async function generateStaticParams() {
+  const channels = await fetchAllChannels();
+  const paths = channels.map((channel) => {
+    return {
+      groupId: channel.id,
+    };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+}
 
 export default async function GroupId({ params }: IGroupIdProps) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
