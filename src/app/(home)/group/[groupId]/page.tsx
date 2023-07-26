@@ -21,7 +21,7 @@ export default async function GroupId({ params }: IGroupIdProps) {
   return (
     <div>
       <h1>Group {params.groupId}</h1>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading....</div>}>
         <Test4 params={params} />
       </Suspense>
     </div>
