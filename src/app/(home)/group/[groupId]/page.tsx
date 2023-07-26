@@ -9,15 +9,11 @@ interface IGroupIdProps {
 }
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
-  const paths = channels.map((channel) => {
+  return channels.map((channel) => {
     return {
       groupId: channel.id,
     };
   });
-  return {
-    paths,
-    fallback: true,
-  };
 }
 
 export default async function GroupId({ params }: IGroupIdProps) {
