@@ -1,16 +1,12 @@
+import Test4 from "@/components/test4";
 import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
-import dynamic from "next/dynamic";
-
-const Test4 = dynamic(() => import("@/components/test4"), {
-  ssr: true,
-});
+import { Suspense } from "react";
 
 interface IGroupIdProps {
   params: {
     groupId: string;
   };
 }
-export const revalidate = 15;
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
   return channels.map((channel) => {
@@ -19,7 +15,12 @@ export async function generateStaticParams() {
     };
   });
 }
+export const revalidate = "force cache";
 
 export default function GroupId({ params }: IGroupIdProps) {
-  return <Test4 params={params} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Test4 params={params} />
+    </Suspense>
+  );
 }
