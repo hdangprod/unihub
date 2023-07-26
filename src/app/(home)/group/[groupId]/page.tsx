@@ -18,6 +18,7 @@ export async function generateStaticParams() {
 
 export default async function GroupId({ params }: IGroupIdProps) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  console.log("GroupId", params.groupId);
   return (
     <div>
       <h1>Group {params.groupId}</h1>
