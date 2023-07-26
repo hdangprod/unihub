@@ -10,9 +10,7 @@ interface IGroupIdProps {
     groupId: string;
   };
 }
-
-export const dynamicParams = false;
-
+export const revalidate = "force-cache";
 export async function generateStaticParams() {
   const channels = await fetchAllChannels();
   return channels.map((channel) => {
