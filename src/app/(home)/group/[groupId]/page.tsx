@@ -15,12 +15,15 @@ export async function generateStaticParams() {
     };
   });
 }
-export const revalidate = "force cache";
 
-export default function GroupId({ params }: IGroupIdProps) {
+export default async function GroupId({ params }: IGroupIdProps) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Test4 params={params} />
-    </Suspense>
+    <div>
+      <h1>Group {params.groupId}</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Test4 params={params} />
+      </Suspense>
+    </div>
   );
 }
