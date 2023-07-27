@@ -1,22 +1,26 @@
-// import Test4 from "@/components/test4";
-// import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
-import { Suspense } from "react";
+import { getChannelToken } from "@/server/handlers/getChannelToken";
+import dynamic from "next/dynamic";
 
 interface IGroupIdProps {
   params: {
     groupId: string;
   };
 }
-// export async function generateStaticParams() {
-//   const channels = await fetchAllChannels();
-//   return channels.map((channel) => {
-//     return {
-//       channelId: channel.id,
-//     };
-//   });
-// }
 
-export default function GroupId({ params }: IGroupIdProps) {
-  console.log(params);
-  return <div>My GroupId {params.groupId}</div>;
+const VideoCall = dynamic(() => import("@/components/video-call"), {
+  ssr: false,
+});
+
+export default async function GroupId({ params }: IGroupIdProps) {
+  const token = await getChannelToken(params.groupId);
+
+  return (
+    <div>
+      <VideoCall
+        uid={token.account}
+        token={token.token}
+        channelName={params.groupId}
+      />
+    </div>
+  );
 }

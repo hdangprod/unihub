@@ -1,42 +1,40 @@
 import { useState } from "react";
 import { useClient } from "@/utils/videoCallSettings";
 import type { ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
+import { useRouter } from "next/navigation";
 
 interface IControlProps {
   tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
   setStart: React.Dispatch<React.SetStateAction<boolean>>;
-  setInCall: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Controls({
-  tracks,
-  setStart,
-  setInCall,
-}: IControlProps) {
+export default function Controls({ tracks, setStart }: IControlProps) {
+  debugger;
+  const router = useRouter();
   const client = useClient();
   const [trackState, setTrackState] = useState({ video: true, audio: true });
 
   const mute = async (type: "audio" | "video") => {
     if (type === "audio") {
       await tracks[0].setEnabled(!trackState.audio);
-      setTrackState((ps) => {
-        return { ...ps, audio: !ps.audio };
+      setTrackState((prev) => {
+        return { ...prev, audio: !prev.audio };
       });
     } else if (type === "video") {
       await tracks[1].setEnabled(!trackState.video);
-      setTrackState((ps) => {
-        return { ...ps, video: !ps.video };
+      setTrackState((prev) => {
+        return { ...prev, video: !prev.video };
       });
     }
   };
 
   const leaveChannel = async () => {
     await client.leave();
-    client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
     setStart(false);
-    setInCall(false);
+    client.removeAllListeners();
+    router.push(`/group`);
   };
 
   return (
@@ -46,7 +44,7 @@ export default function Controls({
           color={trackState.audio ? "primary" : "secondary"}
           onClick={() => mute("audio")}
         >
-          Mute Audio
+          {trackState.audio ? "Mic on" : "Mic off"}
         </button>
       </div>
       <div>
@@ -54,7 +52,7 @@ export default function Controls({
           color={trackState.video ? "primary" : "secondary"}
           onClick={() => mute("video")}
         >
-          Mute Video
+          {trackState.video ? "Cam on" : "Mic off"}
         </button>
       </div>
       <div>

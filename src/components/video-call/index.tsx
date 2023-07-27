@@ -1,22 +1,21 @@
+"use client";
 import { useState, useEffect } from "react";
 import {
   config,
   useClient,
   useMicrophoneAndCameraTracks,
 } from "@/utils/videoCallSettings";
-import Videos from "./video";
-import Controls from "./controller";
+import Videos from "@/components/video-call/video";
+import Controls from "@/components/video-call/controller";
 import type { IAgoraRTCRemoteUser } from "agora-rtc-react";
 
 interface IVideoCallProps {
-  setInCall: React.Dispatch<React.SetStateAction<boolean>>;
   channelName: string;
   token: string;
   uid: string;
 }
 
 export default function VideoCall({
-  setInCall,
   channelName,
   token,
   uid,
@@ -26,7 +25,8 @@ export default function VideoCall({
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
 
-  console.log("this is token", token);
+  console.log(" this is users", users);
+
   useEffect(() => {
     const init = async (name: string) => {
       client.on("user-published", async (user, mediaType) => {
@@ -43,9 +43,10 @@ export default function VideoCall({
 
       client.on("user-unpublished", (user, mediaType) => {
         if (mediaType === "audio") {
-          if (user.audioTrack) user.audioTrack.stop();
+          user.audioTrack?.stop();
         }
         if (mediaType === "video") {
+          user.videoTrack?.stop();
           setUsers((prevUsers) => {
             return prevUsers.filter((User) => User.uid !== user.uid);
           });
@@ -79,9 +80,7 @@ export default function VideoCall({
       <h1>Video Call</h1>
       <div>{start && tracks && <Videos tracks={tracks} users={users} />}</div>
       <div>
-        {ready && tracks && (
-          <Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
-        )}
+        {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
       </div>
     </div>
   );
