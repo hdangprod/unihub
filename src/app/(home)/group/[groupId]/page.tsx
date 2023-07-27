@@ -17,13 +17,5 @@ interface IGroupIdProps {
 // }
 
 export default function GroupId({ params: { channelId } }: IGroupIdProps) {
-  return (
-    <div>
-      <h1>Group {channelId}</h1>
-      <Suspense fallback={<div>Loading....</div>}>
-        {/* <Test4 params={params} /> */}
-        <div>hello</div>
-      </Suspense>
-    </div>
-  );
+  return <div></div>;
 }
