@@ -9,7 +9,7 @@ const VideoCall = dynamic(() => import("@/components/video-call"), {
 
 interface IGroupIdProps {
   params: {
-    groupId: string;
+    channelId: string;
   };
 }
 
@@ -17,7 +17,7 @@ export default function Test4({ params }: IGroupIdProps) {
   const [inCall, setInCall] = useState(false);
 
   const { data: channelTokenRouter } = api.channelRouter.getToken.useQuery({
-    channelId: params.groupId,
+    channelId: params.channelId,
   });
 
   return (
@@ -27,7 +27,7 @@ export default function Test4({ params }: IGroupIdProps) {
           <VideoCall
             uid={channelTokenRouter?.account as string}
             token={channelTokenRouter?.token as string}
-            channelName={params.groupId}
+            channelName={params.channelId}
             setInCall={setInCall}
           />
         ) : (

@@ -1,28 +1,28 @@
-import Test4 from "@/components/test4";
-import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
+// import Test4 from "@/components/test4";
+// import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
 import { Suspense } from "react";
 
 interface IGroupIdProps {
   params: {
-    groupId: string;
+    channelId: string;
   };
 }
-export async function generateStaticParams() {
-  const channels = await fetchAllChannels();
-  return channels.map((channel) => {
-    return {
-      groupId: channel.id,
-    };
-  });
-}
+// export async function generateStaticParams() {
+//   const channels = await fetchAllChannels();
+//   return channels.map((channel) => {
+//     return {
+//       channelId: channel.id,
+//     };
+//   });
+// }
 
-export default async function GroupId({ params }: IGroupIdProps) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+export default function GroupId({ params: { channelId } }: IGroupIdProps) {
   return (
     <div>
-      <h1>Group {params.groupId}</h1>
+      <h1>Group {channelId}</h1>
       <Suspense fallback={<div>Loading....</div>}>
-        <Test4 params={params} />
+        {/* <Test4 params={params} /> */}
+        <div>hello</div>
       </Suspense>
     </div>
   );
