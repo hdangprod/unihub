@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 interface IGroupIdProps {
   params: {
-    channelId: string;
+    groupId: string;
   };
 }
 // export async function generateStaticParams() {
@@ -16,6 +16,7 @@ interface IGroupIdProps {
 //   });
 // }
 
-export default function GroupId({ params: { channelId } }: IGroupIdProps) {
-  return <div></div>;
+export default function GroupId({ params }: IGroupIdProps) {
+  console.log(params);
+  return <div>My GroupId {params.groupId}</div>;
 }
