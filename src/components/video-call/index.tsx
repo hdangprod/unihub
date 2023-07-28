@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import {
-  config,
   useClient,
   useMicrophoneAndCameraTracks,
 } from "@/utils/videoCallSettings";
@@ -14,6 +13,7 @@ interface IVideoCallProps {
   token: string;
   uid: string;
 }
+const appId = process.env.NEXT_PUBLIC_AGORA_APP_ID as string;
 
 export default function VideoCall({
   channelName,
@@ -24,8 +24,6 @@ export default function VideoCall({
   const [start, setStart] = useState(false);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
-
-  console.log(" this is users", users);
 
   useEffect(() => {
     const init = async (name: string) => {
@@ -41,12 +39,12 @@ export default function VideoCall({
         }
       });
 
-      client.on("user-unpublished", (user, mediaType) => {
-        if (mediaType === "audio") {
+      client.on("user-unpublished", (user, type) => {
+        console.log("unpublished", user, type);
+        if (type === "audio") {
           user.audioTrack?.stop();
         }
-        if (mediaType === "video") {
-          user.videoTrack?.stop();
+        if (type === "video") {
           setUsers((prevUsers) => {
             return prevUsers.filter((User) => User.uid !== user.uid);
           });
@@ -54,34 +52,27 @@ export default function VideoCall({
       });
 
       client.on("user-left", (user) => {
+        console.log("leaving", user);
         setUsers((prevUsers) => {
           return prevUsers.filter((User) => User.uid !== user.uid);
         });
       });
 
-      try {
-        await client.join(config.appId, name, token, uid);
-      } catch (error) {
-        console.log("error");
-      }
-
+      await client.join(appId, name, token, uid);
       if (tracks) await client.publish([tracks[0], tracks[1]]);
       setStart(true);
     };
 
     if (ready && tracks) {
       console.log("init ready");
-      init(channelName).catch(console.error);
+      void init(channelName);
     }
   }, [channelName, client, ready, tracks, token, uid]);
 
   return (
-    <div>
-      <h1>Video Call</h1>
-      <div>{start && tracks && <Videos tracks={tracks} users={users} />}</div>
-      <div>
-        {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
-      </div>
+    <div className="App">
+      {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
+      {start && tracks && <Videos users={users} tracks={tracks} />}
     </div>
   );
 }
