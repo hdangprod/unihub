@@ -16,7 +16,11 @@ export default async function GroupId({ params }: IGroupIdProps) {
 
   return (
     <div>
-      <VideoCall />
+      <VideoCall
+        channelName={params.groupId}
+        token={token.token}
+        userId={token.account}
+      />
     </div>
   );
 }

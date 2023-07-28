@@ -1,9 +1,11 @@
 "use client";
-// import AgoraRTC, {
-//   IMicrophoneAudioTrack,
-//   type IAgoraRTCRemoteUser,
-//   ICameraVideoTrack,
-// } from "agora-rtc-sdk-ng";
+import AgoraRTC, {
+  IMicrophoneAudioTrack,
+  type IAgoraRTCRemoteUser,
+  ICameraVideoTrack,
+  UID,
+  IRemoteVideoTrack,
+} from "agora-rtc-sdk-ng";
 // import { useEffect, useState } from "react";
 // import { VideoPlayer } from "./video";
 
@@ -95,7 +97,6 @@
 // export default VideoCall;
 
 import React, { useEffect, useState } from "react";
-import AgoraRTC from "agora-rtc-sdk-ng";
 import { VideoPlayer } from "./video";
 
 const APP_ID = "a51f4c5812894feb8bfa6413673062dd";
@@ -107,38 +108,32 @@ AgoraRTC.setLogLevel(4);
 
 let agoraCommandQueue = Promise.resolve();
 
-const createAgoraClient = ({ onVideoTrack, onUserDisconnected }) => {
+interface ICreateAgoraClientProps {
+  onVideoTrack: (user: IAgoraRTCRemoteUser) => void;
+  onUserDisconnected: (user: IAgoraRTCRemoteUser) => void;
+}
+
+const createAgoraClient = ({
+  onVideoTrack,
+  onUserDisconnected,
+}: ICreateAgoraClientProps) => {
   const client = AgoraRTC.createClient({
     mode: "rtc",
     codec: "vp8",
   });
 
-  let tracks;
-
-  const waitForConnectionState = (connectionState) => {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (client.connectionState === connectionState) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 200);
-    });
-  };
+  let tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
 
   const connect = async () => {
-    await waitForConnectionState("DISCONNECTED");
-
     const uid = await client.join(APP_ID, CHANNEL, TOKEN, null);
 
     console.log("uid", uid);
 
-    client.on("user-published", (user, mediaType) => {
-      client.subscribe(user, mediaType).then(() => {
-        if (mediaType === "video") {
-          onVideoTrack(user);
-        }
-      });
+    client.on("user-published", async (user, mediaType) => {
+      await client.subscribe(user, mediaType);
+      if (mediaType === "video") {
+        onVideoTrack(user);
+      }
     });
 
     client.on("user-left", (user) => {
@@ -147,7 +142,7 @@ const createAgoraClient = ({ onVideoTrack, onUserDisconnected }) => {
 
     tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
 
-    await client.publish(tracks);
+    await client.publish(tracks[1]);
 
     return {
       tracks,
@@ -156,9 +151,8 @@ const createAgoraClient = ({ onVideoTrack, onUserDisconnected }) => {
   };
 
   const disconnect = async () => {
-    await waitForConnectionState("CONNECTED");
     client.removeAllListeners();
-    for (let track of tracks) {
+    for (const track of tracks) {
       track.stop();
       track.close();
     }
@@ -173,15 +167,15 @@ const createAgoraClient = ({ onVideoTrack, onUserDisconnected }) => {
 };
 
 const VideoRoom = () => {
-  const [users, setUsers] = useState([]);
-  const [uid, setUid] = useState(null);
+  const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([]);
+  const [uid, setUid] = useState<UID>();
 
   useEffect(() => {
-    const onVideoTrack = (user) => {
+    const onVideoTrack = (user: IAgoraRTCRemoteUser) => {
       setUsers((previousUsers) => [...previousUsers, user]);
     };
 
-    const onUserDisconnected = (user) => {
+    const onUserDisconnected = (user: IAgoraRTCRemoteUser) => {
       setUsers((previousUsers) =>
         previousUsers.filter((u) => u.uid !== user.uid)
       );
@@ -199,7 +193,8 @@ const VideoRoom = () => {
         ...previousUsers,
         {
           uid,
-          audioTrack: tracks[0],
+          hasAudio: false,
+          hasVideo: true,
           videoTrack: tracks[1],
         },
       ]);
@@ -207,7 +202,7 @@ const VideoRoom = () => {
 
     const cleanup = async () => {
       await disconnect();
-      setUid(null);
+      setUid(undefined);
       setUsers([]);
     };
 
