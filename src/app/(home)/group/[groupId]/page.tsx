@@ -7,7 +7,7 @@ interface IGroupIdProps {
   };
 }
 
-const VideoCall = dynamic(() => import("@/components/video-call"), {
+const VideoCall = dynamic(() => import("@/components/video-call/index"), {
   ssr: false,
 });
 
@@ -16,11 +16,7 @@ export default async function GroupId({ params }: IGroupIdProps) {
 
   return (
     <div>
-      <VideoCall
-        uid={token.account}
-        token={token.token}
-        channelName={params.groupId}
-      />
+      <VideoCall />
     </div>
   );
 }

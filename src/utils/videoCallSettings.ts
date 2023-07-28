@@ -1,14 +1,10 @@
-import {
-  createClient,
-  createMicrophoneAndCameraTracks,
-  type SDK_CODEC,
-  type SDK_MODE,
-} from "agora-rtc-react";
+import AgoraRTC, { type SDK_CODEC, type SDK_MODE } from "agora-rtc-sdk-ng";
 
 export const config = {
   mode: "rtc" as SDK_MODE,
-  codec: "vp9" as SDK_CODEC,
+  codec: "vp8" as SDK_CODEC,
 };
 
-export const useClient = createClient(config);
-export const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
+export const useClient = AgoraRTC.createClient(config);
+export const useMicrophoneAndCameraTracks =
+  AgoraRTC.createMicrophoneAndCameraTracks();
