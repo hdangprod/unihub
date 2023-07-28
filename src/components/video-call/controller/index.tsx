@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useClient } from "@/utils/videoCallSettings";
 import type { ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
+import { useRouter } from "next/navigation";
 
 interface IControlProps {
   tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
@@ -8,6 +9,7 @@ interface IControlProps {
 }
 
 export default function Controls({ tracks, setStart }: IControlProps) {
+  const router = useRouter();
   const client = useClient();
   const [trackState, setTrackState] = useState({ video: true, audio: true });
 
@@ -32,6 +34,7 @@ export default function Controls({ tracks, setStart }: IControlProps) {
     tracks[0].close();
     tracks[1].close();
     setStart(false);
+    router.push("/group");
   };
 
   return (

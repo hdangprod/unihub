@@ -67,6 +67,19 @@ export default function VideoCall({
       console.log("init ready");
       void init(channelName);
     }
+
+    return () => {
+      const disconnect = async () => {
+        client.removeAllListeners();
+        tracks && tracks[0].stop();
+        tracks && tracks[0].close();
+        tracks && tracks[1].stop();
+        tracks && tracks[1].close();
+        await client.leave();
+        setStart(false);
+      };
+      void disconnect();
+    };
   }, [channelName, client, ready, tracks, token, uid]);
 
   return (
