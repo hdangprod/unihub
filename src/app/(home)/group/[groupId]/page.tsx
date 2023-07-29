@@ -1,6 +1,5 @@
 import { getChannelToken } from "@/server/handlers/getChannelToken";
 import dynamic from "next/dynamic";
-import { use } from "react";
 
 interface IGroupIdProps {
   params: {
@@ -12,8 +11,8 @@ const VideoCall = dynamic(() => import("@/components/video-call"), {
   ssr: false,
 });
 
-export default function GroupId({ params }: IGroupIdProps) {
-  const token = use(getChannelToken(params.groupId));
+export default async function GroupId({ params }: IGroupIdProps) {
+  const token = await getChannelToken(params.groupId);
 
   return (
     <div>
