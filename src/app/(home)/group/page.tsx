@@ -1,11 +1,13 @@
-"use client";
 import Input from "@/components/input";
 import ChannelCard from "@/components/channel-card";
 import ChannelCreation from "@/components/channel-creation";
-import { api } from "@/utils/api";
+import { use } from "react";
+import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
+
+export const revalidate = 0;
 
 export default function Group() {
-  const { data: channels, isLoading } = api.channelRouter.fetchAll.useQuery();
+  const channels = use(fetchAllChannels());
 
   return (
     <div className=" flex w-5/6 flex-col gap-5 py-12">
@@ -18,11 +20,11 @@ export default function Group() {
       </div>
       <div className="flex justify-end gap-2">
         <div className="w-2/6">
-          <Input
+          {/* <Input
             id="search"
             label="Search your group here"
             className="w-full"
-          />
+          /> */}
         </div>
         <ChannelCreation />
       </div>
@@ -42,7 +44,7 @@ export default function Group() {
             ))
           ) : (
             <div className="select-none text-center text-slate-300">
-              {isLoading ? "Loading..." : "Empty channel!"}
+              No channels found
             </div>
           )}
         </div>
