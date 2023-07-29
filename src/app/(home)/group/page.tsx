@@ -2,11 +2,11 @@ import Input from "@/components/input";
 import ChannelCard from "@/components/channel-card";
 import ChannelCreation from "@/components/channel-creation";
 import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
-import { Suspense, use } from "react";
+import { Suspense } from "react";
 
-export default function Group() {
+export default async function Group() {
   // const { data: channels, isLoading } = api.channelRouter.fetchAll.useQuery();
-  const channels = use(fetchAllChannels());
+  const channels = await fetchAllChannels();
 
   return (
     <div className=" flex w-5/6 flex-col gap-5 py-12">
