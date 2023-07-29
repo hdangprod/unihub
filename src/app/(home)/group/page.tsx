@@ -4,7 +4,7 @@ import ChannelCreation from "@/components/channel-creation";
 import { use } from "react";
 import { fetchAllChannels } from "@/server/handlers/fetchAllChannels";
 
-export const revalidate = 0;
+export const revalidate = 5;
 
 export default function Group() {
   const channels = use(fetchAllChannels());
