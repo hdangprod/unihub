@@ -1,5 +1,5 @@
 import HeroIcon from "@/components/heroIcon";
-import { type Todo } from "@/server/validations/todoInputSchema";
+import { type Todo } from "@/server/routers/todoRouter";
 import { api } from "@/utils/api";
 
 export default function TodoItem({ text, id, done }: Todo) {

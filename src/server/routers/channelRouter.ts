@@ -1,15 +1,11 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/lib/trpc";
 import { createChannelInputSchema } from "../validations/channelInputSChema";
 import { fetchAllChannels } from "../handlers/fetchAllChannels";
+import type { inferRouterOutputs } from "@trpc/server";
 
 export const channelRouter = createTRPCRouter({
   fetchAll: protectedProcedure.query(async ({ ctx }) => {
-    const channels = await fetchAllChannels(ctx.prisma);
-    return channels.map(({ id, channelName, channelDescription }) => ({
-      id,
-      channelName,
-      channelDescription,
-    }));
+    return await fetchAllChannels(ctx.prisma);
   }),
   fetchAllByUser: protectedProcedure.query(async ({ ctx }) => {
     const channel = await ctx.prisma.studyChannel.findFirst({
@@ -36,3 +32,6 @@ export const channelRouter = createTRPCRouter({
       return channel;
     }),
 });
+
+type ChannelRouterOutput = inferRouterOutputs<typeof channelRouter>;
+export type GetChannel = ChannelRouterOutput["fetchAll"];

@@ -7,14 +7,25 @@ import { api } from "@/utils/api";
 import { useRouter } from "next/navigation";
 
 export default function ChannelCreation() {
-  const createChannel = api.channelRouter.create.useMutation();
-
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const utils = api.useContext();
   const [formData, setFormData] = useState({
     channelName: "",
     channelDescription: "",
   });
+
+  const { mutate: createChannel, isLoading } =
+    api.channelRouter.create.useMutation({
+      retry: false,
+      onSuccess: async (res) => {
+        router.push(`/group/${res.id}`);
+        await utils.channelRouter.fetchAll.invalidate();
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
 
   const handleCreateRoom = () => {
     setIsOpen(true);
@@ -27,11 +38,9 @@ export default function ChannelCreation() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const createdChannel = await createChannel.mutateAsync(formData);
-    console.log(createdChannel);
-    router.push(`/group/${createdChannel.id}`);
+    createChannel(formData);
     setIsOpen(false);
   };
 
@@ -81,7 +90,7 @@ export default function ChannelCreation() {
                 type="submit"
                 className="rounded-xl bg-sky-400 px-5 py-2 text-white transition-colors hover:bg-sky-500 hover:text-white"
               >
-                Create Room
+                {isLoading ? "Loading..." : "Create"}
               </button>
             </div>
           </form>

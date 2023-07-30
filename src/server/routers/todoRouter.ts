@@ -1,5 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/lib/trpc";
 import { createTodoInputSchema } from "@/server/validations/todoInputSchema";
+import { type inferRouterOutputs } from "@trpc/server";
 import { z } from "zod";
 // this is our data store, used to respond to incoming RPCs from the client
 
@@ -53,3 +54,6 @@ export const todoRouter = createTRPCRouter({
       return todo;
     }),
 });
+type RouterOutputs = inferRouterOutputs<typeof todoRouter>;
+type allTodosOutput = RouterOutputs["all"];
+export type Todo = allTodosOutput[number];

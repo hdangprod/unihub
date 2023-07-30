@@ -8,8 +8,8 @@ import { channelRouter } from "./channelRouter";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  todoRouter: todoRouter,
-  channelRouter: channelRouter,
+  todoRouter,
+  channelRouter,
 });
 
 // export type definition of API
