@@ -1,0 +1,8 @@
+.agora-local-player div {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.agora-local-player div video {
+  border-radius: 12px;
+  overflow: hidden;
+}

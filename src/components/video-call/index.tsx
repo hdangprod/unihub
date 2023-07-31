@@ -83,9 +83,9 @@ export default function VideoCall({
   }, [channelName, client, ready, tracks, token, uid]);
 
   return (
-    <div className="App">
-      {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
+    <div className="mr-14 w-full">
       {start && tracks && <Videos users={users} tracks={tracks} />}
+      {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
     </div>
   );
 }

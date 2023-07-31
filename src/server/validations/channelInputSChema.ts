@@ -1,6 +1,4 @@
 import { z } from "zod";
-import type { AppRouter } from "../routers/root";
-import type { inferRouterOutputs } from "@trpc/server";
 
 export const createChannelInputSchema = z.object({
   channelName: z
