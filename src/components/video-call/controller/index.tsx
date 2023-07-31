@@ -49,7 +49,7 @@ export default function Controls({ tracks, setStart }: IControlProps) {
             <HeroIcon icon="microphone" className="h-5 w-5" />
           </div>
         ) : (
-          <div className="rounded-full bg-red-50 p-4 text-red-500 hover:outline hover:outline-sky-200">
+          <div className="rounded-full bg-red-50 p-4 text-red-500 hover:outline hover:outline-red-200">
             <HeroIcon icon="speaker-x-mark" className="h-5 w-5" />
           </div>
         )}

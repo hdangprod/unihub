@@ -7,6 +7,7 @@ import {
 import Videos from "@/components/video-call/video";
 import Controls from "@/components/video-call/controller";
 import type { IAgoraRTCRemoteUser } from "agora-rtc-react";
+import LoadingSpinner from "../loading-spinner";
 
 interface IVideoCallProps {
   channelName: string;
@@ -84,7 +85,11 @@ export default function VideoCall({
 
   return (
     <div className="mr-14 w-full">
-      {start && tracks && <Videos users={users} tracks={tracks} />}
+      {start && tracks ? (
+        <Videos users={users} tracks={tracks} />
+      ) : (
+        <LoadingSpinner position="center" />
+      )}
       {ready && tracks && <Controls tracks={tracks} setStart={setStart} />}
     </div>
   );

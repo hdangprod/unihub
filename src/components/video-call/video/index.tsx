@@ -4,6 +4,7 @@ import {
   type ICameraVideoTrack,
   type IMicrophoneAudioTrack,
 } from "agora-rtc-react";
+import { Suspense } from "react";
 
 export default function Videos({
   users,

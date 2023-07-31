@@ -9,6 +9,7 @@ interface IGroupIdProps {
 
 const VideoCall = dynamic(() => import("@/components/video-call"), {
   ssr: false,
+  loading: () => <div>Loading...</div>,
 });
 
 export default async function GroupId({ params }: IGroupIdProps) {
